@@ -24,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
         // Set status bar content to dark (black) icons
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
+        // All Reference Ids of xml
         ivSettings = findViewById(R.id.iv_settings);
 
+        // All Click Events
         ivSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
