@@ -7,7 +7,7 @@
     android:background="@color/colorBackground"
     android:orientation="vertical"
     android:paddingTop="20dp"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,17 +58,19 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp">
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
 
-        <GridView
-            android:id="@+id/product_list_grid_view"
+        <com.example.weeklymeal.utilities.ExpandableHeightGridView
+            android:id="@+id/gv_meal_type_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:horizontalSpacing="2dp"
+            android:horizontalSpacing="10dp"
             android:isScrollContainer="false"
             android:numColumns="2"
-            android:stretchMode="columnWidth"
+            android:scrollbars="none"
             android:verticalSpacing="10dp" />
 
     </GridLayout>

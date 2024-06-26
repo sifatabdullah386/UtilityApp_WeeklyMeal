@@ -8,7 +8,7 @@
     android:background="@color/colorBackground"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".Settings">
+    tools:context=".view.Settings">
 
     <RelativeLayout
         android:layout_width="match_parent"
