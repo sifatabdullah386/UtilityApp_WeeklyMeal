@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weeklymeal.R;
 import com.example.weeklymeal.adapter.MealTypeAdapter;
 import com.example.weeklymeal.adapter.WeekDayAdapter;
-import com.example.weeklymeal.database.controller.MealItemsController;
+import com.example.weeklymeal.database.controller.FavouriteController;
 import com.example.weeklymeal.database.controller.MealTypeController;
 import com.example.weeklymeal.database.controller.WeekNameController;
 import com.example.weeklymeal.listeners.MealTypeListeners;
@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
     ImageView ivSettings;
     RecyclerView weekDaysRecyclerView;
     ExpandableHeightGridView mealTypeGridView;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     MealTypeRepository mealTypeRepository;
     WeekNameController weekNameController;
     MealTypeController mealTypeController;
-    MealItemsController mealItemsController;
+    FavouriteController favouriteController;
     WeekDayViewModel weekDayViewModel;
     MealTypeViewModel mealTypeViewModel;
     WeekDayAdapter weekDayAdapter;
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         mealTypeRepository = new MealTypeRepository();
         weekNameController = new WeekNameController(this);
         mealTypeController = new MealTypeController(this);
-        mealItemsController = new MealItemsController(this);
+        favouriteController = new FavouriteController(this);
         weekDayViewModel = new WeekDayViewModel();
         mealTypeViewModel = new MealTypeViewModel();
 
@@ -94,8 +93,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void updateMealClick(int pos, String name) {
-                updateMealItemById(MainActivity.this, pos, name);
+            public void onAddFavouriteClick(int pos, String mealItem) {
+                addFavouriteItem(MainActivity.this, String.valueOf(pos), mealItem);
+            }
+
+            @Override
+            public void updateMealClick(int pos, int weekId, String name, String mealItem) {
+                updateMealItemById(MainActivity.this, pos, weekId, name, mealItem);
             }
         };
 
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Meal Type List", "No Data Found");
                 } else {
                     Log.d("Meal Type List", receivedDataList.get(0).getName());
-                    mealTypeAdapter = new MealTypeAdapter(MainActivity.this, receivedDataList, mealTypeListeners, mealItemsController, week_id);
+                    mealTypeAdapter = new MealTypeAdapter(MainActivity.this, receivedDataList, mealTypeListeners, week_id);
                     mealTypeGridView.setAdapter(mealTypeAdapter);
                     mealTypeGridView.setExpanded(true);
                     mealTypeAdapter.notifyDataSetChanged();
@@ -169,12 +173,10 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
-                mealItemsController.addMealItems(mealType, weekId, addMeal.getText().toString().trim());
+                mealTypeController.addMealItems(Integer.parseInt(mealType), addMeal.getText().toString().trim());
                 dialog.dismiss();
                 Toast.makeText(context, "Successfully " + name + " meal added.", Toast.LENGTH_LONG).show();
-                mealTypeAdapter.notifyDataSetChanged();
-                weekDayAdapter.notifyDataSetChanged();
-
+                getMealTypes(Integer.parseInt(weekId));
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +191,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void updateMealItemById(Context context, int mealType, String name) {
+    private void addFavouriteItem(Context context, String mealType, String mealItem) {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_add_meal);
+
+        EditText addRecipe;
+        TextView title, cancel, save;
+
+        addRecipe = dialog.findViewById(R.id.et_add_meal);
+        title = dialog.findViewById(R.id.tv_text_title);
+        cancel = dialog.findViewById(R.id.tv_cancel);
+        save = dialog.findViewById(R.id.tv_save);
+
+        title.setText("Add a Favourite Recipe");
+        if (String.valueOf(mealItem).equals("null")) {
+            addRecipe.setText("Add your Favourite Recipe");
+        } else {
+            addRecipe.setText(mealItem);
+        }
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View view) {
+                favouriteController.addFavourites(mealType, addRecipe.getText().toString().trim());
+                dialog.dismiss();
+                Toast.makeText(context, "Successfully favourite recipe added.", Toast.LENGTH_LONG).show();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void updateMealItemById(Context context, int mealType, int weekId, String name, String mealItem) {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_add_meal);
 
@@ -204,15 +247,20 @@ public class MainActivity extends AppCompatActivity {
         title.setText("Update Meal Item/" + name);
         update.setText("Update");
 
+        if (String.valueOf(mealItem).equals("null")) {
+            addMeal.setHint("Add Meal");
+        } else {
+            addMeal.setText(mealItem);
+        }
+
         update.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
-                mealItemsController.updateMealItemById(mealType, addMeal.getText().toString().trim());
+                mealTypeController.addMealItems(mealType, addMeal.getText().toString().trim());
                 dialog.dismiss();
                 Toast.makeText(context, "Successfully " + name + " meal updated.", Toast.LENGTH_LONG).show();
-                mealTypeAdapter.notifyDataSetChanged();
-                weekDayAdapter.notifyDataSetChanged();
+                getMealTypes(weekId);
             }
         });
 

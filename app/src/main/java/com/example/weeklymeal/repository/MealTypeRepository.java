@@ -15,6 +15,5 @@ public class MealTypeRepository {
     public void getMealTypes(int week_id, MealTypeController mealTypeController, MealTypeViewModel mealTypeViewModel) {
         ArrayList<MealTypeModel> mealTypeModels = mealTypeController.getMealTypes(week_id);
         mealTypeViewModel.setDataList(mealTypeModels);
-        Log.d("Meal Type Repo: ", String.valueOf(mealTypeModels));
     }
 }

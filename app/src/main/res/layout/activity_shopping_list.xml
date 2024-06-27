@@ -62,7 +62,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/btn_circle_white_bg"
                 android:contentDescription="@string/shopping_list"
-                android:padding="7dp"
+                android:padding="10dp"
                 android:src="@drawable/reset_icon"
                 app:tint="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>

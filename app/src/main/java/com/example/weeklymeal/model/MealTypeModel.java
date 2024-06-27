@@ -5,12 +5,14 @@ public class MealTypeModel {
     public int id;
     public String week_id;
     public String name;
+    public String meal_name;
     public String icon;
 
-    public MealTypeModel(int id, String week_id, String name, String icon) {
+    public MealTypeModel(int id, String week_id, String name, String meal_name, String icon) {
         this.id = id;
         this.week_id = week_id;
         this.name = name;
+        this.meal_name = meal_name;
         this.icon = icon;
     }
 
@@ -36,6 +38,14 @@ public class MealTypeModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMeal_name() {
+        return meal_name;
+    }
+
+    public void setMeal_name(String meal_name) {
+        this.meal_name = meal_name;
     }
 
     public String getIcon() {

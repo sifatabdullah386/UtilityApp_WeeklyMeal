@@ -22,26 +22,21 @@ public class WeekNameController {
         sqLiteHandler = new SQLiteHandler(context);
     }
 
-//    public static long insertHomeDefault(SQLiteDatabase db) {
-//        ContentValues values = new ContentValues();
-//        values.put(WeekName.KEY_DAY_NAME, WeekName.DEFAULT_DATA);
-//        long home_id = db.insert(WeekName.TABLE_HOME, null, values);
-//        sessionManager.setValue(Constants.HOME_ID, String.valueOf(home_id));
-//        Log.d("Default Home inserted into sqlite: ", String.valueOf(home_id));
-//        return home_id;
-//    }
-
+    // Insert week day name dy Default
     public static void insertWeekDayByDefault(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         for (String itemName : WeekName.DEFAULT_DATA) {
             values.put(WeekName.KEY_DAY_NAME, itemName);
             long week_id = db.insert(WeekName.TABLE_WEEK_NAME, null, values);
+
+            //Insert meal type name by default
             MealTypeController.insertMealTypesByDefault(String.valueOf(week_id), db);
         }
 
         Log.d("Default Week Name inserted into sqlite: ", String.valueOf(values));
     }
 
+    // Get week name
     public ArrayList<WeekNameModel> getWeekNames() {
         SQLiteDatabase db = sqLiteHandler.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + WeekName.TABLE_WEEK_NAME, null);

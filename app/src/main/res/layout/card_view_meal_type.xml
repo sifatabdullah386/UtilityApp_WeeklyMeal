@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_switch_bg"
     android:layout_width="190dp"
     android:layout_height="100dp"
     android:layout_marginBottom="10dp"
@@ -29,16 +28,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                app:tint="@color/colorPrimary"
                 android:src="@drawable/breakfast_icon"
+                app:tint="@color/colorPrimary"
                 tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_meal_type_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/iv_meal_type_icon"
                 android:layout_marginHorizontal="5dp"
+                android:layout_toEndOf="@+id/iv_meal_type_icon"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:gravity="center_vertical"
                 android:maxLines="1"
@@ -59,19 +58,35 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_add_meal"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:gravity="center_vertical"
-            android:maxLines="2"
-            android:paddingHorizontal="3dp"
-            android:text="@string/add_meal"
-            android:textColor="@color/colorGray"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_marginHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/tv_add_meal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:paddingHorizontal="3dp"
+                android:text="@string/add_meal"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_favourite"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/btn_selected_round_effect_bg"
+                android:src="@drawable/baseline_favorite_border_24"
+                app:tint="@color/colorSelected"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
