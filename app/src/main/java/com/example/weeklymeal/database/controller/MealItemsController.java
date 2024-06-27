@@ -1,5 +1,6 @@
 package com.example.weeklymeal.database.controller;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,10 +21,10 @@ public class MealItemsController {
         sqLiteHandler = new SQLiteHandler(context);
     }
 
-    public void addMealItems(String id, String meal_type_id,String week_id,  String name) {
+    public void addMealItems(String meal_type_id, String week_id, String name) {
         SQLiteDatabase db = sqLiteHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(MealItems.KEY_ITEM_ID, id);
+//        values.put(MealItems.KEY_ITEM_ID, id);
         values.put(MealItems.KEY_MEAL_TYPE_ID, meal_type_id);
         values.put(MealItems.KEY_WEEK_ID, week_id);
         values.put(MealItems.KEY_ITEM_NAME, name);
@@ -53,6 +54,25 @@ public class MealItemsController {
         return mealItemModel;
     }
 
+    @SuppressLint("Range")
+    public String getMealItemById(int meal_type_id) {
+        SQLiteDatabase db = sqLiteHandler.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + MealItems.TABLE_MEAL_ITEMS + " WHERE " + MealItems.KEY_MEAL_TYPE_ID + " = ?", new String[]{String.valueOf(meal_type_id)});
+
+        String result = "";
+        if (cursor != null && cursor.moveToFirst()) {
+            result = cursor.getString(cursor.getColumnIndex(MealItems.KEY_ITEM_NAME));
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        Log.d("Meal Name", result);
+
+        return result;
+    }
+
     public void emptyMealItems() {
         SQLiteDatabase db = sqLiteHandler.getWritableDatabase();
         db.delete(MealItems.TABLE_MEAL_ITEMS, null, null);
@@ -60,7 +80,7 @@ public class MealItemsController {
         Log.d("Deleted all meal items from sqlite", "");
     }
 
-    public void updateMealItems(int id, String name) {
+    public void updateMealItemById(int id, String name) {
         SQLiteDatabase db = sqLiteHandler.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MealItems.KEY_ITEM_NAME, name);

@@ -11,18 +11,15 @@ import com.example.weeklymeal.database.SQLiteHandler;
 import com.example.weeklymeal.database.constants.WeekName;
 import com.example.weeklymeal.model.WeekNameModel;
 import com.example.weeklymeal.utilities.Constants;
-import com.example.weeklymeal.utilities.SessionManager;
 
 import java.util.ArrayList;
 
 public class WeekNameController {
     private final SQLiteHandler sqLiteHandler;
     @SuppressLint("StaticFieldLeak")
-    public static SessionManager sessionManager;
 
     public WeekNameController(Context context) {
         sqLiteHandler = new SQLiteHandler(context);
-        sessionManager = new SessionManager(context);
     }
 
 //    public static long insertHomeDefault(SQLiteDatabase db) {
@@ -40,7 +37,6 @@ public class WeekNameController {
             values.put(WeekName.KEY_DAY_NAME, itemName);
             long week_id = db.insert(WeekName.TABLE_WEEK_NAME, null, values);
             MealTypeController.insertMealTypesByDefault(String.valueOf(week_id), db);
-            sessionManager.setValue(Constants.WEEK_ID, String.valueOf(week_id));
         }
 
         Log.d("Default Week Name inserted into sqlite: ", String.valueOf(values));

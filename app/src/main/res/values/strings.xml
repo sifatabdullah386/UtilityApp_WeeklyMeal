@@ -10,4 +10,12 @@
     <string name="cancel">Cancel\n</string>
     <string name="save">Save</string>
     <string name="add_a_meal">Add a Meal</string>
+    <string name="meal_type">Meal Type</string>
+    <string name="reset">Reset Meal Items</string>
+    <string name="add_shopping_items">Add Shopping Items</string>
+    <string name="clear_meal">Clear Meal</string>
+    <string name="update_meal">Update Meal</string>
+    <string name="add_recipes">Add Recipes</string>
+    <string name="add_favourite_recipes">Add Favourite Recipes</string>
+    <string name="recipe_name">Recipe Name</string>
 </resources>

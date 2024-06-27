@@ -18,7 +18,7 @@ import com.example.weeklymeal.database.controller.ShoppingListController;
 @SuppressWarnings("unchecked")
 public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String TAG = SQLiteHandler.class.getName();
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "weekly_meal";
 
     public SQLiteHandler(Context context) {

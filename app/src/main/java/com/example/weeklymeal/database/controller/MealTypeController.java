@@ -44,9 +44,9 @@ public class MealTypeController {
 //        Log.d("New MealType inserted into sqlite: ", String.valueOf(insert_id));
 //    }
 
-    public ArrayList<MealTypeModel> getMealTypes(String week_id) {
+    public ArrayList<MealTypeModel> getMealTypes(int week_id) {
         SQLiteDatabase db = sqLiteHandler.getReadableDatabase();
-        Cursor mealTypeList = db.rawQuery("SELECT * FROM " + MealType.TABLE_MEAL_TYPE + "WHERE" + MealType.KEY_WEEK_ID.equals(week_id), null);
+        Cursor mealTypeList = db.rawQuery("SELECT * FROM " + MealType.TABLE_MEAL_TYPE + " WHERE " + MealType.KEY_WEEK_ID + " = ?", new String[]{String.valueOf(week_id)});
         ArrayList<MealTypeModel> mealTypeModel = new ArrayList<MealTypeModel>();
 
         if (mealTypeList.moveToFirst()) {
@@ -59,7 +59,7 @@ public class MealTypeController {
             } while (mealTypeList.moveToNext());
         }
         mealTypeList.close();
-        Log.d("Meal Type list:", String.valueOf(mealTypeList));
+        Log.d("Meal Type List:", String.valueOf(mealTypeList));
         return mealTypeModel;
     }
 
