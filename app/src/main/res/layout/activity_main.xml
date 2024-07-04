@@ -69,7 +69,7 @@
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:isScrollContainer="false"
-            android:numColumns="2"
+            android:numColumns="1"
             android:scrollbars="none"
             android:verticalSpacing="10dp" />
 
