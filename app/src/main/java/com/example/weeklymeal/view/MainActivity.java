@@ -37,6 +37,7 @@ import com.example.weeklymeal.utilities.ExpandableHeightGridView;
 import com.example.weeklymeal.viewmodel.MealTypeViewModel;
 import com.example.weeklymeal.viewmodel.WeekDayViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     MealTypeListeners mealTypeListeners;
     Animation scaleUp;
     FloatingActionButton favRecipesFloatingButton;
+    TabLayout tabLayout;
+    ArrayList<WeekNameModel> tabIndex = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         weekDaysRecyclerView = findViewById(R.id.rv_week_name);
         mealTypeGridView = findViewById(R.id.gv_meal_type_list);
         favRecipesFloatingButton = findViewById(R.id.fav_favourite_recipes);
+        tabLayout = findViewById(R.id.tab_week_name);
         mealTypeGridView = (ExpandableHeightGridView) findViewById(R.id.gv_meal_type_list);
 
         weekDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -125,6 +129,28 @@ public class MainActivity extends AppCompatActivity {
 
         favRecipesFloatingButton.setOnClickListener(v -> {
             addFavouriteItem(MainActivity.this, null, null);
+        });
+
+        tabLayout.setSelected(true);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (!String.valueOf(tabIndex.size()).equals("0")) {
+                    getMealTypes(tabIndex.get(tab.getPosition()).getId());
+                    mealTypeGridView.startAnimation(scaleUp);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
         });
     }
 
@@ -154,9 +180,13 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChanged(ArrayList<WeekNameModel> receivedDataList) {
-                weekDayAdapter = new WeekDayAdapter(MainActivity.this, receivedDataList, weekDayListeners);
-                weekDaysRecyclerView.setAdapter(weekDayAdapter);
-                weekDayAdapter.notifyDataSetChanged();
+//                weekDayAdapter = new WeekDayAdapter(MainActivity.this, receivedDataList, weekDayListeners);
+//                weekDaysRecyclerView.setAdapter(weekDayAdapter);
+//                weekDayAdapter.notifyDataSetChanged();
+                for (int i = 0; i < receivedDataList.size(); i++) {
+                    tabLayout.addTab(tabLayout.newTab().setText(receivedDataList.get(i).getName()));
+                    tabIndex.add(new WeekNameModel(receivedDataList.get(i).getId(), receivedDataList.get(i).getName()));
+                }
             }
         });
     }
