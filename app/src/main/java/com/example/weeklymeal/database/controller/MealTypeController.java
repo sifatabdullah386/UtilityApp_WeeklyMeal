@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.weeklymeal.database.SQLiteHandler;
 import com.example.weeklymeal.database.constants.MealType;
+import com.example.weeklymeal.database.constants.ShoppingList;
 import com.example.weeklymeal.model.MealTypeModel;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class MealTypeController {
         sqLiteHandler = new SQLiteHandler(context);
     }
 
-    public static void insertMealTypesByDefault(String week_id,SQLiteDatabase db) {
+    public static void insertMealTypesByDefault(String week_id, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         for (String itemName : MealType.DEFAULT_DATA) {
             values.put(MealType.KEY_WEEK_ID, week_id);
@@ -57,5 +58,16 @@ public class MealTypeController {
         mealTypeList.close();
         Log.d("Meal Type List:", String.valueOf(mealTypeList));
         return mealTypeModel;
+    }
+
+    public void emptyMealItems() {
+        SQLiteDatabase db = sqLiteHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery("UPDATE " + MealType.TABLE_MEAL_TYPE + " SET " + MealType.KEY_MEAL_NAME + "= NULL", null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            cursor.close();
+        }
+        db.close();
+        Log.d("Cleared all meal items from sqlite", "");
     }
 }

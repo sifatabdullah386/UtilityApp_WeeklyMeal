@@ -41,8 +41,8 @@
                 android:fontFamily="@font/poppins_semi_bold"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:textAllCaps="true"
                 android:text="@string/meal_type"
+                android:textAllCaps="true"
                 android:textColor="@color/colorText"
                 android:textSize="14sp"
                 tools:ignore="RelativeOverlap" />
@@ -84,6 +84,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/btn_selected_round_effect_bg"
                 android:src="@drawable/baseline_favorite_border_24"
+                android:visibility="gone"
                 app:tint="@color/colorSelected"
                 tools:ignore="ContentDescription" />
 

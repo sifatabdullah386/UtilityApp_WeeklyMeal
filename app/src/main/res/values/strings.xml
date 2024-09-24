@@ -18,4 +18,7 @@
     <string name="add_recipes">Add Recipes</string>
     <string name="add_favourite_recipes">Add Favourite Recipes</string>
     <string name="recipe_name">Recipe Name</string>
+    <string name="todo">TODO</string>
+    <string name="are_you_sure_to_reset_all_meal_items">Are you really want to reset\n all meal items?</string>
+    <string name="yes">Yes</string>
 </resources>

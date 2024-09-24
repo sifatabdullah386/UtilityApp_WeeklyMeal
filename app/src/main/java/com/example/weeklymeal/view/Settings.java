@@ -1,26 +1,39 @@
 package com.example.weeklymeal.view;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.weeklymeal.R;
+import com.example.weeklymeal.database.controller.MealTypeController;
+
+import java.util.Objects;
 
 public class Settings extends AppCompatActivity {
 
     CardView backBtn;
     RelativeLayout shoppingList, favouriteRecipe, reset;
+    MealTypeController mealTypeController;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        mealTypeController = new MealTypeController(this);
 
         // Set status bar background color
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorBackground));
@@ -52,8 +65,38 @@ public class Settings extends AppCompatActivity {
         });
 
         reset.setOnClickListener(v -> {
-            Intent fI = new Intent(Settings.this, ResetActivity.class);
-            startActivity(fI);
+            resetMealItems(Settings.this);
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void resetMealItems(Context context) {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_reset_confirmation);
+
+        TextView cancel, yes;
+
+        cancel = dialog.findViewById(R.id.tv_cancel);
+        yes = dialog.findViewById(R.id.tv_yes);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View view) {
+                mealTypeController.emptyMealItems();
+                dialog.dismiss();
+                Toast.makeText(context, "All the meal items cleared successfully done", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 }

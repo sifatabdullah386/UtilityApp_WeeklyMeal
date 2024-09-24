@@ -36,6 +36,7 @@ import com.example.weeklymeal.repository.WeekDayRepository;
 import com.example.weeklymeal.utilities.ExpandableHeightGridView;
 import com.example.weeklymeal.viewmodel.MealTypeViewModel;
 import com.example.weeklymeal.viewmodel.WeekDayViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     WeekDayListeners weekDayListeners;
     MealTypeListeners mealTypeListeners;
     Animation scaleUp;
+    FloatingActionButton favRecipesFloatingButton;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         ivSettings = findViewById(R.id.iv_settings);
         weekDaysRecyclerView = findViewById(R.id.rv_week_name);
         mealTypeGridView = findViewById(R.id.gv_meal_type_list);
+        favRecipesFloatingButton = findViewById(R.id.fav_favourite_recipes);
         mealTypeGridView = (ExpandableHeightGridView) findViewById(R.id.gv_meal_type_list);
 
         weekDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -118,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
         ivSettings.setOnClickListener(v -> {
             Intent sI = new Intent(MainActivity.this, Settings.class);
             startActivity(sI);
+        });
+
+        favRecipesFloatingButton.setOnClickListener(v -> {
+            addFavouriteItem(MainActivity.this, null, null);
         });
     }
 
@@ -205,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
         title.setText("Add a Favourite Recipe");
         if (String.valueOf(mealItem).equals("null")) {
-            addRecipe.setText("Add your Favourite Recipe");
+            addRecipe.setHint("Add your Favourite Recipe");
         } else {
             addRecipe.setText(mealItem);
         }

@@ -164,8 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="15dp"
-            android:background="@color/colorBackground"
-            android:visibility="gone" />
+            android:background="@color/colorBackground" />
 
         <RelativeLayout
             android:id="@+id/rl_reset"
@@ -176,8 +175,7 @@
             android:background="@drawable/btn_selected_round_effect_bg"
             android:clickable="true"
             android:focusable="true"
-            android:padding="10dp"
-            android:visibility="gone">
+            android:padding="10dp">
 
             <ImageView
                 android:layout_width="50dp"
