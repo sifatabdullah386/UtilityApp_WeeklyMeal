@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.weeklymeal'
+    namespace 'com.smilesifat.weeklymeal'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.weeklymeal"
+        applicationId "com.smilesifat.weeklymeal"
         minSdk 24
         targetSdk 34
         versionCode 1
