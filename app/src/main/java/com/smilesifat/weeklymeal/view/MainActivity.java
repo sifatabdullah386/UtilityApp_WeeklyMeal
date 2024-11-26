@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,11 +65,19 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ArrayList<WeekNameModel> tabIndex = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        splashScreen.setKeepOnScreenCondition(() -> {
+                getWeekDays();
+                getMealTypes(1);
+            return false;
+        });
 
         // Set status bar background color
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorBackground));
@@ -117,9 +128,6 @@ public class MainActivity extends AppCompatActivity {
         mealTypeGridView = (ExpandableHeightGridView) findViewById(R.id.gv_meal_type_list);
 
         weekDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        getWeekDays();
-        getMealTypes(1);
 
         // All Click Events
         ivSettings.setOnClickListener(v -> {

@@ -19,12 +19,12 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:background="@drawable/btn_selected_round_effect_bg"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorWhite"
             android:fontFamily="@font/poppins_bold"
             android:padding="7dp"
             android:text="@string/add_favourite_recipes"
             android:textAlignment="center"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
         <TextView
@@ -33,12 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:background="@drawable/btn_selected_round_effect_bg"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorWhite"
             android:fontFamily="@font/poppins_bold"
             android:padding="7dp"
             android:text="@string/update_meal"
             android:textAlignment="center"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
         <TextView
@@ -47,12 +47,12 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:background="@drawable/btn_selected_round_effect_bg"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorWhite"
             android:fontFamily="@font/poppins_bold"
             android:padding="7dp"
             android:text="@string/clear_meal"
             android:textAlignment="center"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
     </LinearLayout>

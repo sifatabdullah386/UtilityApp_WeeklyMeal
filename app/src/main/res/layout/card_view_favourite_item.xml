@@ -13,7 +13,7 @@
         android:padding="7dp"
         android:text="@string/week_name"
         android:textAlignment="center"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:drawableStartCompat="@drawable/baseline_favorite_border_24" />
 

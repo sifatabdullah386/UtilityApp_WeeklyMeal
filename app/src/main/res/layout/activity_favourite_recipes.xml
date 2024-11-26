@@ -25,8 +25,8 @@
             app:cardElevation="0dp">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:background="@drawable/btn_circle_white_bg"
                 android:contentDescription="@string/shopping_list"
                 android:padding="7dp"

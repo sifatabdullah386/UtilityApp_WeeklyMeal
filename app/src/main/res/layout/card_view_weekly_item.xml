@@ -20,9 +20,9 @@
             android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="13dp"
             android:paddingVertical="7dp"
-            android:text="Category Name"
+            android:text="@string/category_name"
             android:textAlignment="center"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 

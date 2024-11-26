@@ -21,4 +21,7 @@
     <string name="todo">TODO</string>
     <string name="are_you_sure_to_reset_all_meal_items">Are you really want to reset\n all meal items?</string>
     <string name="yes">Yes</string>
+    <string name="floating_action_button">Floating action button</string>
+    <string name="add_recepie">Add Recepie</string>
+    <string name="category_name">Category Name</string>
 </resources>
